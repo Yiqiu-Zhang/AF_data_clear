@@ -2,7 +2,7 @@ import os
 import pickle
 from os import listdir
 from os.path import isfile, join
-
+import numpy as np
 
 bucket_base = 's3://AF_data'
 ID_TO_HHBLITS_AA = {
@@ -51,7 +51,7 @@ def extract_clear(tar_list):
 
             for pkl_file in pkl_list:
 
-                with open(base_folder+pkl_file, 'rb') as f:
+                with open(base_folder+pkl_file, 'r') as f:
                     features = pickle.load(f)
                 msa_name = '.'.join([pkl_file.split('.')[0], 'aln'])
                 with open(base_folder+msa_name, 'w') as f:
