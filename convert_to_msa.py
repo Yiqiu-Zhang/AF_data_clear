@@ -41,8 +41,9 @@ def extract_clear(tar_list):
     for tar_name in tar_list:
         target_dir = '/'.join(tar_name.split('/')[:-1])
 
-        os.system(f'aws s3 cp s3://AF_data_jinzhen/{tar_name} {base_folder}/{tar_name}')
-        os.system(f'tar -xvf {base_folder}/{tar_name} -C {base_folder}/{target_dir}')
+        #os.system(f'aws s3 cp s3://AF_data_jinzhen/{tar_name} {base_folder}/{tar_name}')
+        #os.system(f'tar -xvf {base_folder}/{tar_name} -C {base_folder}/{target_dir}')
+        #os.remove(base_folder + tar_name)
 
         pack = tar_name.split('.')[0]
 
@@ -53,13 +54,15 @@ def extract_clear(tar_list):
 
                 with open(base_folder+pkl_file, 'rb') as f:
                     features = pickle.load(f)
+                os.remove(base_folder+pkl_file)
+
                 msa_name = '.'.join([pkl_file.split('.')[0], 'aln'])
                 with open(base_folder+msa_name, 'w') as f:
                     f.write('\n'.join(''.join([ID_TO_HHBLITS_AA[val] for val in row]) for row in features['msa']))
                     f.close()
 
         upload_item(pack)
-        os.remove(base_folder+tar_name)
+
 
 
 tar_list = [item.strip() for item in open('tar_file_name.txt').readlines()]
