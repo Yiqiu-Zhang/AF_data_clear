@@ -1,5 +1,3 @@
-Readme.txt
-distillation_dataset/distill_data_statistics_729.json
 distillation_dataset/pdb/pdb_0.tar.gz
 distillation_dataset/pdb/pdb_1.tar.gz
 distillation_dataset/pdb/pdb_10.tar.gz
@@ -512,7 +510,6 @@ distillation_dataset/pkl/pkl_96.tar.gz
 distillation_dataset/pkl/pkl_97.tar.gz
 distillation_dataset/pkl/pkl_98.tar.gz
 distillation_dataset/pkl/pkl_99.tar.gz
-new_validation_dataset/nv_data_statistics.json
 new_validation_dataset/pdb.tar.gz
 new_validation_dataset/pkl.tar.gz
 psp_lite/distillation_mini/distillation_mini.pdb.tar.gz
@@ -1093,4 +1090,3 @@ true_structure_dataset/pkl/pkl_96.tar.gz
 true_structure_dataset/pkl/pkl_97.tar.gz
 true_structure_dataset/pkl/pkl_98.tar.gz
 true_structure_dataset/pkl/pkl_99.tar.gz
-true_structure_dataset/true_structure_data_statistics_729.json
