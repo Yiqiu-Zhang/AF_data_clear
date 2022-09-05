@@ -46,7 +46,7 @@ def extract_clear(tar_list):
         pack = tar_name.split('.')[0]
 
         if 'pkl' in tar_name:
-            pkl_list = [pkl_name for pkl_name in listdir(pack) if isfile(join(pack, pkl_name))]
+            pkl_list = ['/'+target_dir+pkl_name for pkl_name in listdir(pack) if isfile(join(pack, pkl_name))]
 
             for pkl_file in pkl_list:
 
