@@ -41,8 +41,8 @@ def extract_clear(tar_list):
     for tar_name in tar_list:
         target_dir = '/'.join(tar_name.split('/')[:-1])
 
-        #os.system(f'aws s3 cp s3://AF_data_jinzhen/{tar_name} {base_folder}/{tar_name}')
-        #os.system(f'tar -xvf {base_folder}/{tar_name} -C {base_folder}/{target_dir}')
+        os.system(f'aws s3 cp s3://AF_data_jinzhen/{tar_name} {base_folder}/{tar_name}')
+        os.system(f'tar -xvf {base_folder}/{tar_name} -C {base_folder}/{target_dir}')
 
         pack = tar_name.split('.')[0]
 
