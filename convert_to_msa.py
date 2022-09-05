@@ -51,7 +51,7 @@ def extract_clear(tar_list):
 
             for pkl_file in pkl_list:
 
-                with open(base_folder+pkl_file, 'r') as f:
+                with open(base_folder+pkl_file, 'rb') as f:
                     features = pickle.load(f)
                 msa_name = '.'.join([pkl_file.split('.')[0], 'aln'])
                 with open(base_folder+msa_name, 'w') as f:
