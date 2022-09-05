@@ -51,7 +51,7 @@ def extract_clear(tar_list):
             pkl_list = [pack+'/'+pkl_name for pkl_name in listdir(pack) if isfile(join(pack, pkl_name))]
 
             for pkl_file in pkl_list:
-
+                print(pkl_file)
                 with open(base_folder+pkl_file, 'rb') as f:
                     features = pickle.load(f)
                 os.remove(base_folder+pkl_file)
