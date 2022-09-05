@@ -41,7 +41,7 @@ def extract_clear(tar_list):
     for tar_name in tar_list:
         os.system(f'aws s3 cp s3://AF_data_jinzhen/{tar_name} {base_folder}/{tar_name}')
         print(tar_name)
-        os.system(f'tar -xvf {tar_name}')
+        os.system(f'tar -xvf {base_folder}/{tar_name}')
         pack = tar_name.split('.')[0]
 
         if 'pkl' in tar_name:
