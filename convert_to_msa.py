@@ -48,6 +48,7 @@ def extract_clear(tar_list):
             pkl_list = [pkl_name for pkl_name in listdir(pack) if isfile(join(pack, pkl_name))]
 
             for pkl_file in pkl_list:
+
                 with open(pkl_file, 'rb') as f:
                     features = pickle.load(f)
                 msa_name = '.'.join([pkl_file.split('.')[0], 'aln'])
@@ -62,7 +63,7 @@ def extract_clear(tar_list):
 tar_list = [item.strip() for item in open('tar_file_name.txt').readlines()]
 
 tar_list = ['distillation_dataset/pkl/pkl_9.tar.gz']
-base_folder = os.path.expanduser('~')+'/af_data/'
+base_folder = os.path.expanduser('~')+'/AF_data_clear/'
 if __name__ == '__main__':
 
     extract_clear(tar_list)
