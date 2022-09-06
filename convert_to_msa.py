@@ -39,33 +39,44 @@ def upload_item(folder_name):
 
 
 def extract_clear(tar_list):
+
     for tar_name in tar_list:
-        target_dir = '/'.join(tar_name.split('/')[:-1])
-
-        #os.system(f'aws s3 cp s3://AF_data_jinzhen/{tar_name} {base_folder}/{tar_name}')
-        #os.system(f'tar -xvf {base_folder}/{tar_name} -C {base_folder}/{target_dir}')
-        os.remove(base_folder + tar_name)
-
         pack = tar_name.split('.')[0]
-        list = [pack + '/' + name for name in listdir(pack) if isfile(join(pack, name))]
-        '''
-        if 'pkl' in tar_name:
 
-            while len(list) > 0:
-                pkl_file = list.pop()
-                print(pkl_file)
-                with open(base_folder+pkl_file, 'rb') as f:
-                    features = pickle.load(f)
-                    f.close()
-                os.remove(base_folder+pkl_file)
-                pkl_file.replace()
-                msa_name = '.'.join([pkl_file.split('.')[0], 'aln'])
-                with open(base_folder+msa_name, 'w') as f:
-                    f.write('\n'.join(''.join([ID_TO_HHBLITS_AA[val] for val in row]) for row in features['msa']))
-                    f.close()
-'''
-        #upload_item(pack)
-        shutil.rmtree(base_folder+pack)
+        pack_rp = pack.replace('pkl', 'msa')
+        found = os.popen(f'aws s3 ls {bucket_base}/{pack_rp}').read()
+
+        if not found:
+
+            target_dir = '/'.join(tar_name.split('/')[:-1])
+
+            os.system(f'aws s3 cp s3://AF_data_jinzhen/{tar_name} {base_folder}/{tar_name}')
+            os.system(f'tar -xvf {base_folder}/{tar_name} -C {base_folder}/{target_dir}')
+            os.remove(base_folder + tar_name)
+
+
+            list = [pack + '/' + name for name in listdir(pack) if isfile(join(pack, name))]
+
+            if 'pkl' in tar_name:
+
+                while len(list) > 0:
+                    pkl_file = list.pop()
+                    print(pkl_file)
+                    with open(base_folder+pkl_file, 'rb') as f:
+                        features = pickle.load(f)
+                        f.close()
+                    os.remove(base_folder+pkl_file)
+                    pkl_file.replace()
+                    msa_name = '.'.join([pkl_file.split('.')[0], 'aln'])
+                    with open(base_folder+msa_name, 'w') as f:
+                        f.write('\n'.join(''.join([ID_TO_HHBLITS_AA[val] for val in row]) for row in features['msa']))
+                        f.close()
+
+            upload_item(pack)
+            shutil.rmtree(base_folder + pack)
+
+        else:
+            print('right')
 
 tar_list = [item.strip() for item in open('tar_file_name.txt').readlines()]
 
