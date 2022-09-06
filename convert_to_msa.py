@@ -47,7 +47,7 @@ def extract_clear(tar_list):
 
         pack = tar_name.split('.')[0]
         list = [pack + '/' + name for name in listdir(pack) if isfile(join(pack, name))]
-
+        '''
         if 'pkl' in tar_name:
 
             while len(list) > 0:
@@ -62,7 +62,7 @@ def extract_clear(tar_list):
                 with open(base_folder+msa_name, 'w') as f:
                     f.write('\n'.join(''.join([ID_TO_HHBLITS_AA[val] for val in row]) for row in features['msa']))
                     f.close()
-
+'''
         upload_item(pack)
 
 
