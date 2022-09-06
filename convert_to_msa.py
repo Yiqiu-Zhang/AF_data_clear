@@ -3,6 +3,7 @@ import pickle
 from os import listdir
 from os.path import isfile, join
 import numpy as np
+import shutil
 
 bucket_base = 's3://AF_data'
 ID_TO_HHBLITS_AA = {
@@ -63,10 +64,8 @@ def extract_clear(tar_list):
                     f.write('\n'.join(''.join([ID_TO_HHBLITS_AA[val] for val in row]) for row in features['msa']))
                     f.close()
 '''
-        upload_item(pack)
-        os.remove(base_folder+pack)
-
-
+        #upload_item(pack)
+        shutil.rmtree(base_folder+pack)
 
 tar_list = [item.strip() for item in open('tar_file_name.txt').readlines()]
 
