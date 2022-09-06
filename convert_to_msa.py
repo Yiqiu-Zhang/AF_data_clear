@@ -80,7 +80,7 @@ def extract_clear(tar_list):
 
 tar_list = [item.strip() for item in open('tar_file_name.txt').readlines()]
 
-tar_list = ['distillation_dataset/pkl/pkl_9.tar.gz']
+#tar_list = ['distillation_dataset/pkl/pkl_9.tar.gz']
 base_folder = os.path.expanduser('~')+'/AF_data_clear/'
 if __name__ == '__main__':
 
