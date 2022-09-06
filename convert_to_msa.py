@@ -64,6 +64,7 @@ def extract_clear(tar_list):
                     f.close()
 '''
         upload_item(pack)
+        os.remove(base_folder+pack)
 
 
 
