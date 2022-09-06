@@ -32,7 +32,7 @@ ID_TO_HHBLITS_AA = {
 
 
 def upload_item(file_name):
-    upload_command = 'aws s3 cp %s/%s %s/%s' % (base_folder, file_name, bucket_base, file_name)
+    upload_command = 'aws s3 cp %s/%s %s/%s --recursive' % (base_folder, file_name, bucket_base, file_name)
     print(upload_command)
     os.system(upload_command)
 
@@ -46,24 +46,25 @@ def extract_clear(tar_list):
         #os.remove(base_folder + tar_name)
 
         pack = tar_name.split('.')[0]
-        '''
-        if 'pkl' in tar_name:
-            pkl_list = [pack+'/'+pkl_name for pkl_name in listdir(pack) if isfile(join(pack, pkl_name))]
+        list = [pack + '/' + name for name in listdir(pack) if isfile(join(pack, name))]
 
-            while len(pkl_list) > 0:
-                pkl_file = pkl_list.pop()
+        if 'pkl' in tar_name:
+
+            while len(list) > 0:
+                pkl_file = list.pop()
                 print(pkl_file)
                 with open(base_folder+pkl_file, 'rb') as f:
                     features = pickle.load(f)
                     f.close()
                 os.remove(base_folder+pkl_file)
-
-                msa_name = '.'.join([pkl_file.split('.')[0], 'aln'])
+                pkl_file.replace()
+                msa_name = '.'.join([pkl_file.split('.')[0].replace('pkl', 'msa'), 'aln'])
                 with open(base_folder+msa_name, 'w') as f:
                     f.write('\n'.join(''.join([ID_TO_HHBLITS_AA[val] for val in row]) for row in features['msa']))
                     f.close()
-        '''
-        upload_item(pack)
+
+                upload_item(msa_name)
+        elif 'pdb' in tar_name:
 
 
 tar_list = [item.strip() for item in open('tar_file_name.txt').readlines()]
