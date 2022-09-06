@@ -31,8 +31,8 @@ ID_TO_HHBLITS_AA = {
 }
 
 
-def upload_item(file_name):
-    upload_command = 'aws s3 cp %s/%s %s/%s --recursive' % (base_folder, file_name, bucket_base, file_name)
+def upload_item(folder_name):
+    upload_command = 'aws s3 cp %s/%s %s/%s --recursive' % (base_folder, folder_name, bucket_base, folder_name.replace('pkl', 'msa'))
     print(upload_command)
     os.system(upload_command)
 
@@ -58,13 +58,13 @@ def extract_clear(tar_list):
                     f.close()
                 os.remove(base_folder+pkl_file)
                 pkl_file.replace()
-                msa_name = '.'.join([pkl_file.split('.')[0].replace('pkl', 'msa'), 'aln'])
+                msa_name = '.'.join([pkl_file.split('.')[0], 'aln'])
                 with open(base_folder+msa_name, 'w') as f:
                     f.write('\n'.join(''.join([ID_TO_HHBLITS_AA[val] for val in row]) for row in features['msa']))
                     f.close()
 
-                upload_item(msa_name)
-        elif 'pdb' in tar_name:
+        upload_item(pack)
+
 
 
 tar_list = [item.strip() for item in open('tar_file_name.txt').readlines()]
