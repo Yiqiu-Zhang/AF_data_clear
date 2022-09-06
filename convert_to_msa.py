@@ -32,7 +32,7 @@ ID_TO_HHBLITS_AA = {
 
 
 def upload_item(file_name):
-    upload_command = 'aws s3 cp %s/%s %s/%s' % (file_name, '.tar.gz', bucket_base, file_name)
+    upload_command = 'aws s3 cp %s/%s %s/%s' % (base_folder, file_name, bucket_base, file_name)
     print(upload_command)
     os.system(upload_command)
 
@@ -46,7 +46,7 @@ def extract_clear(tar_list):
         #os.remove(base_folder + tar_name)
 
         pack = tar_name.split('.')[0]
-
+        '''
         if 'pkl' in tar_name:
             pkl_list = [pack+'/'+pkl_name for pkl_name in listdir(pack) if isfile(join(pack, pkl_name))]
 
@@ -62,7 +62,7 @@ def extract_clear(tar_list):
                 with open(base_folder+msa_name, 'w') as f:
                     f.write('\n'.join(''.join([ID_TO_HHBLITS_AA[val] for val in row]) for row in features['msa']))
                     f.close()
-
+        '''
         upload_item(pack)
 
 
