@@ -5,7 +5,7 @@ from os.path import isfile, join
 import numpy as np
 import shutil
 
-bucket_base = 's3://AF_data'
+bucket_base = 's3://AF_data/'
 ID_TO_HHBLITS_AA = {
     0: 'A',
     1: 'C',  # Also U.
@@ -35,7 +35,7 @@ ID_TO_HHBLITS_AA = {
 def upload_item(folder_name):
 
 
-    upload_command = 'aws s3 cp %s/%s %s/%s --recursive' % (base_folder, folder_name, bucket_base, folder_name.replace('pkl', 'msa'))
+    upload_command = 'aws s3 cp %s%s %s%s' % (base_folder, folder_name, bucket_base, folder_name.replace('pkl', 'msa'))
     print(upload_command)
     os.system(upload_command)
 
@@ -43,7 +43,8 @@ def upload_item(folder_name):
 def extract_clear(tar_list):
 
     for tar_name in tar_list:
-        pack = tar_name.split('.')[0]
+        pack = tar_name.split('.')[0] # e.g distillation_dataset/pkl/pkl_162     .tar.gz
+
 
         pack_rp = pack.replace('pkl', 'msa')
         found = os.popen(f'aws s3 ls {bucket_base}/{pack_rp}').read()
@@ -74,7 +75,7 @@ def extract_clear(tar_list):
                         f.write('\n'.join(''.join([ID_TO_HHBLITS_AA[val] for val in row]) for row in features['msa']))
                         f.close()
 
-                    upload_item(base_folder+msa_name)
+                    upload_item(msa_name)
                     os.remove(base_folder+msa_name)
 
         else:
