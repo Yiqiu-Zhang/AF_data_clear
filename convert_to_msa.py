@@ -53,6 +53,8 @@ def extract_clear(tar_list):
 
             with open(f'{base_folder}/finished_file.txt', 'a') as f: # 添加文件到已完成
                 f.write(f'\n{tar_name}')
+                f.close()
+            os.system(f'aws s3 cp {base_folder}finished_file.txt s3://AF_data/finished_file.txt ')
 
             target_dir = '/'.join(tar_name.split('/')[:-1])
 
