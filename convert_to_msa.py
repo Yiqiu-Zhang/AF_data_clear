@@ -66,8 +66,8 @@ def extract_clear(tar_list):
                         features = pickle.load(f)
                         f.close()
                     os.remove(base_folder+pkl_file)
-                    pkl_file.replace()
-                    msa_name = '.'.join([pkl_file.split('.')[0], 'aln'])
+
+                    msa_name = '.'.join([pkl_file.split('.')[0].replace('pkl', 'msa'), 'aln'])
                     with open(base_folder+msa_name, 'w') as f:
                         f.write('\n'.join(''.join([ID_TO_HHBLITS_AA[val] for val in row]) for row in features['msa']))
                         f.close()
