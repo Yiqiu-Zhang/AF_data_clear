@@ -67,7 +67,7 @@ def extract_clear(tar_list):
                         f.close()
                     os.remove(base_folder+pkl_file)
 
-                    msa_name = '.'.join([pkl_file.split('.')[0].replace('pkl', 'msa'), 'aln'])
+                    msa_name = '.'.join([pkl_file.split('.')[0], 'aln'])
                     with open(base_folder+msa_name, 'w') as f:
                         f.write('\n'.join(''.join([ID_TO_HHBLITS_AA[val] for val in row]) for row in features['msa']))
                         f.close()
@@ -80,7 +80,7 @@ def extract_clear(tar_list):
 
 tar_list = [item.strip() for item in open('tar_file_name.txt').readlines()]
 
-#tar_list = ['distillation_dataset/pkl/pkl_9.tar.gz']
+tar_list = ['distillation_dataset/pkl/pkl_9.tar.gz']
 base_folder = os.path.expanduser('~')+'/AF_data_clear/'
 if __name__ == '__main__':
 
