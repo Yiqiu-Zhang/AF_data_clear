@@ -86,6 +86,8 @@ tar_list = [item.strip() for item in open('tar_file_name.txt').readlines()]
 # tar_list = ['distillation_dataset/pkl/pkl_148.tar.gz']
 base_folder = os.path.expanduser('~')+'/AF_data_clear/'
 if __name__ == '__main__':
-
-    extract_clear(tar_list)
+    import  sys
+    if len(sys.argv)<3:
+        exit(1)
+    extract_clear(tar_list[int(sys.argv[0]):int(sys.argv[1])])
 
