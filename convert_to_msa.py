@@ -54,7 +54,7 @@ def extract_clear(tar_list):
 
             os.system(f'aws s3 cp s3://AF_data_jinzhen/{tar_name} {base_folder}/{tar_name}')
             os.system(f'tar -xvf {base_folder}/{tar_name} -C {base_folder}/{target_dir}')
-            os.remove(base_folder + tar_name)
+            os.remove(base_folder + tar_name) # 移除压缩文件
 
 
             list = [pack + '/' + name for name in listdir(pack) if isfile(join(pack, name))]
@@ -74,8 +74,8 @@ def extract_clear(tar_list):
                         f.write('\n'.join(''.join([ID_TO_HHBLITS_AA[val] for val in row]) for row in features['msa']))
                         f.close()
 
-            upload_item(pack)
-            shutil.rmtree(base_folder + pack)
+                    upload_item(base_folder+msa_name)
+                    os.remove(base_folder+msa_name)
 
         else:
             print(f'File loaded {pack}')
