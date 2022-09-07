@@ -2,8 +2,6 @@ import os
 import pickle
 from os import listdir
 from os.path import isfile, join
-import numpy as np
-import shutil
 
 bucket_base = 's3://AF_data/'
 ID_TO_HHBLITS_AA = {
@@ -45,9 +43,9 @@ def extract_clear(tar_list):
     for tar_name in tar_list:
         pack = tar_name.split('.')[0] # e.g distillation_dataset/pkl/pkl_162    .tar.gz
 
-        os.system(f'aws s3 cp s3://AF_data/finished_file.txt {base_folder}/finished_file.txt')
+        os.system(f'aws s3 cp s3://AF_data/finished_file.txt {base_folder}finished_file.txt')
 
-        with open(f'{base_folder}/finished_file.txt', 'r') as f: # 下载已完成文件
+        with open(f'{base_folder}finished_file.txt', 'r') as f: # 下载已完成文件
             found = f.read().split('\n')
 
 
