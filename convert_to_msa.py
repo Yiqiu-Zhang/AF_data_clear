@@ -33,6 +33,8 @@ ID_TO_HHBLITS_AA = {
 
 
 def upload_item(folder_name):
+
+
     upload_command = 'aws s3 cp %s/%s %s/%s --recursive' % (base_folder, folder_name, bucket_base, folder_name.replace('pkl', 'msa'))
     print(upload_command)
     os.system(upload_command)
@@ -76,7 +78,7 @@ def extract_clear(tar_list):
             shutil.rmtree(base_folder + pack)
 
         else:
-            print('right')
+            print(f'File loaded {pack}')
 
 
 tar_list = [item.strip() for item in open('tar_file_name.txt').readlines()]
