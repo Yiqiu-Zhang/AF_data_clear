@@ -43,13 +43,18 @@ def upload_item(folder_name):
 def extract_clear(tar_list):
 
     for tar_name in tar_list:
-        pack = tar_name.split('.')[0] # e.g distillation_dataset/pkl/pkl_162     .tar.gz
+        pack = tar_name.split('.')[0] # e.g distillation_dataset/pkl/pkl_162    .tar.gz
+
+        os.system(f'aws s3 cp s3://AF_data/finished_file.txt {base_folder}/finished_file.txt')
+
+        with open(f'{base_folder}/finished_file.txt', 'r') as f: # 下载已完成文件
+            found = f.read().split('\n')
 
 
-        pack_rp = pack.replace('pkl', 'msa')
-        found = os.popen(f'aws s3 ls {bucket_base}/{pack_rp}').read()
+        if tar_name not in found: # 检测是否已完成
 
-        if not found:
+            with open(f'{base_folder}/finished_file.txt', 'a') as f: # 添加文件到已完成
+                f.write(f'\n{tar_name}')
 
             target_dir = '/'.join(tar_name.split('/')[:-1])
 
@@ -63,7 +68,7 @@ def extract_clear(tar_list):
             if 'pkl' in tar_name:
 
                 while len(list) > 0:
-                    pkl_file = list.pop()
+                    pkl_file = list.pop(0)
                     print(pkl_file)
                     with open(base_folder+pkl_file, 'rb') as f:
                         features = pickle.load(f)
@@ -90,5 +95,6 @@ if __name__ == '__main__':
     import  sys
     if len(sys.argv)<3:
         exit(1)
+
     extract_clear(tar_list[int(sys.argv[1]):int(sys.argv[2])])
 
