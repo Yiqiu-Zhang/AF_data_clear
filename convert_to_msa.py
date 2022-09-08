@@ -2,6 +2,7 @@ import os
 import pickle
 from os import listdir
 from os.path import isfile, join
+import numpy as np
 
 bucket_base = 's3://AF_data/'
 ID_TO_HHBLITS_AA = {
@@ -38,6 +39,7 @@ def upload_item(folder_name):
     os.system(upload_command)
 
 
+
 def extract_clear(tar_list):
 
     for tar_name in tar_list:
@@ -50,8 +52,8 @@ def extract_clear(tar_list):
 
 
         if tar_name not in found: # 检测是否已完成
-
-            with open(f'{base_folder}/finished_file.txt', 'a') as f: # 添加文件到已完成
+            # 添加文件到已完成
+            with open(f'{base_folder}/finished_file.txt', 'a') as f:
                 f.write(f'\n{tar_name}')
                 f.close()
             os.system(f'aws s3 cp {base_folder}finished_file.txt s3://AF_data/finished_file.txt ')
@@ -77,7 +79,9 @@ def extract_clear(tar_list):
 
                     msa_name = '.'.join([pkl_file.split('.')[0], 'aln'])
                     with open(base_folder+msa_name, 'w') as f:
-                        f.write('\n'.join(''.join([ID_TO_HHBLITS_AA[val] for val in row]) for row in features['msa']))
+                        msa_array = np.vectorize(ID_TO_HHBLITS_AA.get)(features['msa'])
+                        f.write('\n'.join(''.join(seq) for seq in msa_array))
+                        # f.write('\n'.join(''.join([ID_TO_HHBLITS_AA[val] for val in row]) for row in features['msa']))
                         f.close()
 
                     upload_item(msa_name)
