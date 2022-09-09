@@ -112,7 +112,7 @@ def extract_clear(tar_list):
 tar_list = [item.strip() for item in open('tar_file_name.txt').readlines()]
 
 # tar_list = ['distillation_dataset/pkl/pkl_146.tar.gz']
-PROCESS_NUM = 10
+PROCESS_NUM = 100
 if __name__ == '__main__':
     import  sys
     if len(sys.argv)<3:
