@@ -91,11 +91,16 @@ def extract_clear(tar_list):
 
             if 'pkl' in tar_name:
 
+                threads = []
                 sub_l = len(name_list) // PROCESS_NUM
                 for n in range(PROCESS_NUM):
                     sub_process = threading.Thread(target=convert, args=(name_list[n * sub_l:(n + 1) * sub_l],))
-                    sub_process.start()
-                    sub_process.join()
+                    threads.append(sub_process)
+
+                for x in threads:
+                    x.start()
+                for x in threads:
+                    x.join()
 
             else: # 是pdb文件 直接上传整个文件夹并删除文件夹
 
@@ -107,7 +112,7 @@ def extract_clear(tar_list):
 tar_list = [item.strip() for item in open('tar_file_name.txt').readlines()]
 
 # tar_list = ['distillation_dataset/pkl/pkl_146.tar.gz']
-PROCESS_NUM = 9
+PROCESS_NUM = 10
 if __name__ == '__main__':
     import  sys
     if len(sys.argv)<3:
