@@ -93,7 +93,7 @@ def extract_clear(tar_list):
 
                 threads = []
                 sub_l = len(name_list) // PROCESS_NUM
-                for n in range(PROCESS_NUM):
+                for n in range(PROCESS_NUM+1):
                     sub_process = threading.Thread(target=convert, args=(name_list[n * sub_l:(n + 1) * sub_l],))
                     threads.append(sub_process)
 
