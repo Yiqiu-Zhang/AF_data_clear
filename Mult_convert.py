@@ -95,6 +95,7 @@ def extract_clear(tar_list):
                 for n in range(PROCESS_NUM):
                     sub_process = threading.Thread(target=convert, args=(name_list[n * sub_l:(n + 1) * sub_l],))
                     sub_process.start()
+                    sub_process.join()
 
             else: # 是pdb文件 直接上传整个文件夹并删除文件夹
 
