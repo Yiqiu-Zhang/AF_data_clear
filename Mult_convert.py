@@ -49,7 +49,7 @@ def convert(process_name_list):
             msa_array = np.vectorize(ID_TO_HHBLITS_AA.get)(features['msa'])
             f.write('\n'.join(''.join(seq) for seq in msa_array))
             f.close()
-        # upload_item(msa_name)
+        upload_item(msa_name)
         os.remove(base_folder + msa_name)
 
 
@@ -74,12 +74,11 @@ def extract_clear(tar_list):
         if tar_name not in found: # 检测是否已完成
 
             # 添加文件到已完成
-            '''
             with open(f'{base_folder}/finished_file.txt', 'a') as f:
                 f.write(f'\n{tar_name}')
                 f.close()
             os.system(f'aws s3 cp {base_folder}finished_file.txt s3://AF_data/finished_file.txt ')
-            '''
+
             target_dir = '/'.join(tar_name.split('/')[:-1])
 
             os.system(f'aws s3 cp s3://AF_data_jinzhen/{tar_name} {base_folder}/{tar_name}')
@@ -104,9 +103,9 @@ def extract_clear(tar_list):
 
 
 
-# tar_list = [item.strip() for item in open('tar_file_name.txt').readlines()]
+tar_list = [item.strip() for item in open('tar_file_name.txt').readlines()]
 
-tar_list = ['distillation_dataset/pkl/pkl_146.tar.gz']
+# tar_list = ['distillation_dataset/pkl/pkl_146.tar.gz']
 PROCESS_NUM = 9
 if __name__ == '__main__':
     import  sys
