@@ -78,8 +78,10 @@ def extract_clear(tar_list):
 
 if __name__ == '__main__':
     dir_name = 'distillation_dataset/'
-    tar_list = ['distillation_dataset/'+ name for name in listdir(dir_name) if isfile(join(dir_name, name))]
+    #tar_list = ['distillation_dataset/'+ name for name in os.walk(dir_name)]
+    tar_list = []
+    for (dir_path, dir_names, file_names) in os.walk(dir_name):
+        tar_list.extend(file_names)
     print(tar_list)
     # extract_clear(tar_list)
-
 
