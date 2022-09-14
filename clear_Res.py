@@ -71,10 +71,8 @@ def extract_clear(tar_list):
         if 'pkl' in tar_name:
 
             threads = []
-            sub_l = len(name_list) // PROCESS_NUM
             for n in range(PROCESS_NUM + 1):
-                sub_process = multiprocessing.Process(target=convert, args=(name_list[n * sub_l:(n + 1) * sub_l],))
-                threads.append(sub_process)
+                convert(name_list)
 
             for x in threads:
                 x.start()
@@ -87,7 +85,7 @@ def extract_clear(tar_list):
             shutil.rmtree(base_folder + tar_name)
 
 if __name__ == '__main__':
-
+    tar_list = os.popen('ls distillation_dataset/pkl/')
     extract_clear(tar_list)
 
 
