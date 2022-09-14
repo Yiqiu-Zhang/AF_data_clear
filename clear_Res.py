@@ -65,16 +65,11 @@ def extract_clear(tar_list):
     for tar_name in tar_list:
 
         name_list = [tar_name + '/' + name for name in listdir(tar_name) if isfile(join(tar_name, name))]
+
         if 'pkl' in tar_name:
 
-            threads = []
-            for n in range(PROCESS_NUM + 1):
-                convert(name_list)
+            convert(name_list)
 
-            for x in threads:
-                x.start()
-            for x in threads:
-                x.join()
 
         else:  # 是pdb文件 直接上传整个文件夹并删除文件夹
 
@@ -84,6 +79,7 @@ def extract_clear(tar_list):
 if __name__ == '__main__':
     dir_name = 'distillation_dataset/'
     tar_list = ['distillation_dataset/'+ name for name in listdir(dir_name) if isfile(join(dir_name, name))]
-    extract_clear(tar_list)
+    print(tar_list)
+    # extract_clear(tar_list)
 
 

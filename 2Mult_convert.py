@@ -68,7 +68,7 @@ def extract_clear(tar_list):
 
         os.system(f'aws s3 cp s3://AF_data/finished_file.txt {base_folder}finished_file.txt')
 
-        with open(f'{base_folder}finished_file.txt', 'r') as f: # 下载已完成文件
+        with open(f'{base_folder}finished_file.txt', 'r') as f: # 下载已完成文件目录
             found = f.read().split('\n')
 
 
@@ -110,9 +110,13 @@ def extract_clear(tar_list):
 
 
 
-tar_list = [item.strip() for item in open('tar_file_name.txt').readlines()]
+# tar_list = [item.strip() for item in open('tar_file_name.txt').readlines()]
 
-# tar_list = ['distillation_dataset/pkl/pkl_146.tar.gz']
+tar_list = ['distillation_dataset/pkl/pkl_150',
+            'distillation_dataset/pkl/pkl_255',
+            'new_validation_dataset/raw_feature2',
+            'new_validation_dataset/targets']
+
 PROCESS_NUM = 100
 if __name__ == '__main__':
     import  sys
