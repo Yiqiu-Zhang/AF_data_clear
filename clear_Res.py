@@ -6,10 +6,7 @@ import numpy as np
 import shutil
 import multiprocessing
 
-tar_list = ['distillation_dataset/pkl/pkl_150',
-            'distillation_dataset/pkl/pkl_255',
-            'new_validation_dataset/pkl',
-            'new_validation_dataset/pdb']
+
 
 ID_TO_HHBLITS_AA = {
     0: 'A',
