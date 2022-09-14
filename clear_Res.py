@@ -35,7 +35,7 @@ ID_TO_HHBLITS_AA = {
     20: 'X',  # Includes J and O.
     21: '-'
 }
-PROCESS_NUM = 10
+PROCESS_NUM = 1
 base_folder = os.path.expanduser('~')+'/AF_data_clear/'
 bucket_base = 's3://AF_data/'
 
