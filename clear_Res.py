@@ -85,7 +85,7 @@ def extract_clear(tar_list):
             shutil.rmtree(base_folder + tar_name)
 
 if __name__ == '__main__':
-    tar_list = [name for name in listdir(base_folder+'distillation_dataset/pkl/')]
+    tar_list = [base_folder+'distillation_dataset/pkl/'+name for name in listdir(base_folder+'distillation_dataset/pkl/')]
     extract_clear(tar_list)
 
 
