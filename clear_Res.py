@@ -32,7 +32,6 @@ ID_TO_HHBLITS_AA = {
     20: 'X',  # Includes J and O.
     21: '-'
 }
-PROCESS_NUM = 1
 base_folder = os.path.expanduser('~')+'/AF_data_clear/'
 bucket_base = 's3://AF_data/'
 
@@ -70,14 +69,13 @@ def extract_clear(tar_list):
 
             convert(name_list)
 
-
         else:  # 是pdb文件 直接上传整个文件夹并删除文件夹
 
             os.system(f'aws s3 cp {base_folder}{tar_name} {bucket_base}{tar_name} --recursive')
             shutil.rmtree(base_folder + tar_name)
 
 if __name__ == '__main__':
-    dir_path = 'distillation_dataset/pkl/'
+    dir_path = 'true_structure_dataset/pkl/'
     #tar_list = ['distillation_dataset/'+ name for name in os.walk(dir_name)]
     tar_list = [dir_path + name for name in listdir(dir_path)]
     extract_clear(tar_list)
