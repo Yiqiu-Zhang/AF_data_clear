@@ -9,7 +9,7 @@ for i in range(256):
                                  '--summarize'], stdout=temp_msa)
         proc.wait()
         temp_msa.seek(0)
-        number_of_msa = int(temp_msa.readlines()[-2].split(':')[-1])
+        number_of_msa = int(temp_msa.readlines()[-2].split(b':')[-1])
 
 
 
@@ -21,7 +21,7 @@ for i in range(256):
                                  '--summarize'], stdout=temp_pdb)
         proc.wait()
         temp_pdb.seek(0)
-        number_of_pdb = int(temp_pdb.readlines()[-2].split(':')[-1])
+        number_of_pdb = int(temp_pdb.readlines()[-2].split(b':')[-1])
         if number_of_msa != number_of_pdb:
             '''
             msa_list = temp_msa.readlines()[:-2]
