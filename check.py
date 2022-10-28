@@ -23,14 +23,19 @@ for i in range(256):
         temp_pdb.seek(0)
         number_of_pdb = int(temp_pdb.readlines()[-2].split(b':')[-1])
         if number_of_msa != number_of_pdb:
+
             '''
             msa_list = temp_msa.readlines()[:-2]
             pdb_list = temp_pdb.readlines()[:-2]
             for pdb in pdb_list:
                 if pdb.replace('.','/').split('/')[-2] not in msa_list:
             '''
+
             print(f'difference in pdb_{i}')
-            print(number_of_pdb-number_of_msa)
+            print(f'#pdb:{number_of_pdb}')
+            print(f'#msa:{number_of_msa}')
+
+            #print(number_of_pdb-number_of_msa)
 
         temp_pdb.close()
         temp_msa.close()
