@@ -31,7 +31,7 @@ bucket_base = 's3://AF_data/'
 
 def upload_item(msa_name):
 
-    upload_command = 'aws s3 cp %s %s%s' % (msa_name, bucket_base, msa_name)
+    upload_command = 'aws s3 cp %s %s%s' % (msa_name, bucket_base, msa_name.replace('pkl','msa'))
     print(upload_command)
     system(upload_command)
 
@@ -60,12 +60,26 @@ def convert(name_list):
                 f.close()
             upload_item(f'true_structure_dataset/pkl/pkl_{i}/{msa_name}')
             remove(f'true_structure_dataset/pkl/pkl_{i}/{msa_name}')
+def uploadpdb(pdb_gz):
+
+    for i in pdb_gz:
+        subprocess.call(['aws', 's3', 'cp',
+                         f's3://AF_data_jinzhen/true_structure_dataset/pdb/pdb_{i}.tar.gz',
+                         f'true_structure_dataset/pdb/pdb_{i}.tar.gz'])
+        subprocess.call(['tar', '-xzvf', f'true_structure_dataset/pdb/pdb_{i}.tar.gz',
+                         '-C', f'true_structure_dataset/pdb/'])
+        subprocess.call(['aws', 's3', 'cp',
+                         f'true_structure_dataset/pdb/pdb_{i}',
+                         f's3://AF_data/true_structure_dataset/pdb/pdb_{i}'])
+
 
 if __name__ == '__main__':
 
     loadMSA_list = [9,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99]
     loadpdb_list = [172,181]
     convert(loadMSA_list)
+    uploadpdb(loadpdb_list)
+
 
 
 
