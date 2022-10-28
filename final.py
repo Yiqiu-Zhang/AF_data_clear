@@ -41,7 +41,7 @@ def convert(name_list):
                          f's3://AF_data_jinzhen/true_structure_dataset/pkl/pkl_{i}.tar.gz',
                          f'true_structure_dataset/pkl/pkl_{i}.tar.gz'])
         subprocess.call(['tar', '-xzvf', f'true_structure_dataset/pkl/pkl_{i}.tar.gz',
-                         f'true_structure_dataset/pkl/'])
+                         '-C', f'true_structure_dataset/pkl/'])
         pkl_files = listdir(f'true_structure_dataset/pkl/pkl_{i}')
 
         while len(pkl_files) > 0:
