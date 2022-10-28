@@ -3,7 +3,7 @@ import tempfile
 for i in range(256):
     with tempfile.TemporaryFile() as temp_msa:
         proc = subprocess.Popen(['aws', 's3', 'ls',
-                                 f's3://AF_data/true_structure_dataset/msa/msa_{i}/',
+                                 f's3://AF_data/distillation_dataset/msa/msa_{i}/',
                                  '--recursive',
                                  '--human-readable',
                                  '--summarize'], stdout=temp_msa)
@@ -15,7 +15,7 @@ for i in range(256):
 
     with tempfile.TemporaryFile() as temp_pdb:
         proc = subprocess.Popen(['aws', 's3', 'ls',
-                                 f's3://AF_data/true_structure_dataset/pdb/pdb_{i}/',
+                                 f's3://AF_data/distillation_dataset/pdb/pdb_{i}/',
                                  '--recursive',
                                  '--human-readable',
                                  '--summarize'], stdout=temp_pdb)
