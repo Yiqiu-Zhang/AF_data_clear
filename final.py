@@ -42,6 +42,7 @@ def convert(name_list):
                          f'true_structure_dataset/pkl/pkl_{i}.tar.gz'])
         subprocess.call(['tar', '-xzvf', f'true_structure_dataset/pkl/pkl_{i}.tar.gz',
                          '-C', f'true_structure_dataset/pkl/'])
+        subprocess.call(['rm',f'true_structure_dataset/pkl/pkl_{i}.tar.gz'])
         pkl_files = listdir(f'true_structure_dataset/pkl/pkl_{i}')
 
         while len(pkl_files) > 0:
@@ -75,7 +76,7 @@ def uploadpdb(pdb_gz):
 
 if __name__ == '__main__':
 
-    loadMSA_list = [9,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99]
+    loadMSA_list = [89,90,91,92,93,94,95,96,97,98,99]
     loadpdb_list = [172,181]
     convert(loadMSA_list)
     uploadpdb(loadpdb_list)
