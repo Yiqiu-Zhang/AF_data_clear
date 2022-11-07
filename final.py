@@ -38,29 +38,30 @@ def upload_item(msa_name):
 def convert(name_list):
     for i in name_list:
         subprocess.call(['aws', 's3', 'cp',
-                         f's3://AF_data_jinzhen/true_structure_dataset/pkl/pkl_{i}.tar.gz',
-                         f'true_structure_dataset/pkl/pkl_{i}.tar.gz'])
-        subprocess.call(['tar', '-xzvf', f'true_structure_dataset/pkl/pkl_{i}.tar.gz',
-                         '-C', f'true_structure_dataset/pkl/'])
-        subprocess.call(['rm',f'true_structure_dataset/pkl/pkl_{i}.tar.gz'])
-        pkl_files = listdir(f'true_structure_dataset/pkl/pkl_{i}')
+                         f's3://AF_data_jinzhen/distillation_dataset/pkl/pkl_{i}.tar.gz',
+                         f'distillation_dataset/pkl/pkl_{i}.tar.gz'])
+        subprocess.call(['tar', '-xzvf', f'distillation_dataset/pkl/pkl_{i}.tar.gz',
+                         '-C', f'distillation_dataset/pkl/'])
+        subprocess.call(['rm',f'distillation_dataset/pkl/pkl_{i}.tar.gz'])
+        pkl_files = listdir(f'distillation_dataset/pkl/pkl_{i}')
 
         while len(pkl_files) > 0:
             pkl_file = pkl_files.pop(0)
             print(pkl_file)
-            with open(f'true_structure_dataset/pkl/pkl_{i}/{pkl_file}', 'rb') as f:
+            with open(f'distillation_dataset/pkl/pkl_{i}/{pkl_file}', 'rb') as f:
                 features = pickle.load(f)
                 f.close()
 
-            remove(f'true_structure_dataset/pkl/pkl_{i}/{pkl_file}')
+            remove(f'distillation_dataset/pkl/pkl_{i}/{pkl_file}')
 
             msa_name = '.'.join([pkl_file.split('.')[0], 'aln'])
-            with open(f'true_structure_dataset/pkl/pkl_{i}/{msa_name}', 'w') as f:
+            with open(f'distillation_dataset/pkl/pkl_{i}/{msa_name}', 'w') as f:
                 msa_array = np.vectorize(ID_TO_HHBLITS_AA.get)(features['msa'])
                 f.write('\n'.join(''.join(seq) for seq in msa_array))
                 f.close()
-            upload_item(f'true_structure_dataset/pkl/pkl_{i}/{msa_name}')
-            remove(f'true_structure_dataset/pkl/pkl_{i}/{msa_name}')
+            upload_item(f'distillation_dataset/pkl/pkl_{i}/{msa_name}')
+            remove(f'distillation_dataset/pkl/pkl_{i}/{msa_name}')
+
 def uploadpdb(pdb_gz):
 
     for i in pdb_gz:
@@ -76,8 +77,8 @@ def uploadpdb(pdb_gz):
 
 if __name__ == '__main__':
 
-    loadMSA_list = [89,90,91,92,93,94,95,96,97,98,99]
-    loadpdb_list = [172,181]
+    loadMSA_list = [9]
+    loadpdb_list = []
     convert(loadMSA_list)
     uploadpdb(loadpdb_list)
 
